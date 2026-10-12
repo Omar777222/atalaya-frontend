@@ -1,0 +1,29 @@
+/* Atalaya: paleta de una torre de vigilancia de noche, con el faro encendido */
+:root {
+  --ink: #0f2a3f;          /* azul tinta: marca, menú y textos fuertes */
+  --ink-soft: #1d3d56;
+  --paper: #eef2f5;        /* fondo general */
+  --surface: #ffffff;
+  --text: #16222d;
+  --muted: #566573;
+  --line: #d7dfe6;
+  --beacon: #e3a33c;       /* el faro: solo para el recorrido y el foco */
+  --beacon-soft: #fbf0dc;
+
+  --ok: #1b7a52;
+  --ok-soft: #e3f3eb;
+  --warn: #9a5c0b;
+  --warn-soft: #fbefd9;
+  --danger: #b3362d;
+  --danger-soft: #fbe7e5;
+  --info: #2c5d8a;
+  --info-soft: #e5eef7;
+
+  --font: "Segoe UI Variable Text", "Segoe UI", system-ui, -apple-system, Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-display: "Segoe UI Variable Display", "Segoe UI", system-ui, -apple-system, Roboto, Arial, sans-serif;
+  --font-mono: "Cascadia Mono", Consolas, "SF Mono", Menlo, monospace;
+
+  --radius-sm: 6px;
+  --radius: 10px;
+  --shadow: 0 1px 2px rgba(15, 42, 63, 0.06), 0 4px 16px rgba(15, 42, 63, 0.05);
+}

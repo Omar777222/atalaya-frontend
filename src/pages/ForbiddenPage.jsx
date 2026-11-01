@@ -16,7 +16,7 @@ export default function ForbiddenPage() {
         Iniciaste sesión como <strong>{ROLE_LABELS[user.role]}</strong>. Por el principio de mínimo privilegio,
         cada rol solo ve lo que necesita para su trabajo. El servidor también responde 403 si se intenta por la API.
       </p>
-      <Link to="/" className="btn btn--primary">Volver al resumen</Link>
+      <Link to="/" className="btn btn--primary">Volver al centro de monitoreo</Link>
     </div>
   );
 }

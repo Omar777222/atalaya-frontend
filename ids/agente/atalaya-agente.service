@@ -1,0 +1,23 @@
+# /etc/systemd/system/atalaya-agente.service  (en ec2-frontend)
+# sudo systemctl daemon-reload && sudo systemctl enable --now atalaya-agente
+[Unit]
+Description=Atalaya - agente IDS (Suricata -> backend -> Telegram)
+After=network-online.target suricata.service
+Wants=network-online.target
+
+[Service]
+EnvironmentFile=/etc/atalaya/agente.env
+ExecStart=/usr/bin/python3 -I /opt/atalaya/atalaya_agente.py
+Restart=always
+RestartSec=5
+# Corre como root solo para poder leer /var/log/suricata/eve.json (Suricata lo crea con permisos 0640).
+# El resto del sistema queda en solo lectura y sin escalada de privilegios.
+User=root
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+PrivateTmp=true
+ReadOnlyPaths=/var/log/suricata
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,12 @@
+# Atalaya · Reglas de Suricata (NIDS en ec2-frontend) · atalaya-obj2-wireshark.rules
+# Copiar a /var/lib/suricata/rules/ y agregar en rule-files de suricata.yaml · SID 1100001 a 1100299
+# Generado con npm run rules:export: edita atalaya-backend/src/domain/catalog/detectionCatalog.js
+
+# ===== Objetivo 2 · Sniffer (Wireshark) =====
+# Tráfico: Un POST de login enviado por HTTP (puerto 80) directo al frontend, el mismo que se analiza en Wireshark con Follow TCP Stream.
+# Por qué: Suricata decodifica HTTP y busca "password" en el cuerpo. Si llegara por HTTPS (como desde el ALB) no podría leerlo: eso demuestra por qué cifrar.
+alert http any any -> $HOME_NET any (msg:"ATALAYA SURICATA Credenciales en texto claro (HTTP POST)"; flow:to_server,established; http.method; content:"POST"; http.request_body; content:"password"; nocase; classtype:policy-violation; sid:1100101; rev:1;)
+
+# Tráfico: Un inicio de sesión normal en https://atalaya-zt.duckdns.org: Nginx descifra y reenvía el JSON por HTTP al backend.
+# Por qué: El usuario ve HTTPS, pero el tramo Nginx → API (10.0.128.10:3000) va en claro. Suricata lo ve salir por ens5; por eso esta regla mira hacia la red del backend y no hacia HOME_NET.
+alert http $HOME_NET any -> 10.0.128.0/17 3000 (msg:"ATALAYA SURICATA Credenciales en claro hacia el backend (peering)"; flow:to_server,established; http.uri; content:"/api/auth/login"; http.request_body; content:"password"; nocase; classtype:policy-violation; sid:1100102; rev:1;)

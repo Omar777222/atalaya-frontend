@@ -1,15 +1,24 @@
 /* Estructura con menú lateral */
-.shell { display: grid; grid-template-columns: 250px 1fr; min-height: 100%; }
+.shell { display: grid; grid-template-columns: 260px 1fr; min-height: 100%; }
 
 .sidebar {
   background: var(--ink); color: #fff;
   display: flex; flex-direction: column; padding: 1.4rem 1rem;
   position: sticky; top: 0; height: 100vh;
 }
-.sidebar__brand { display: flex; align-items: center; gap: 0.65rem; font-family: var(--font-display); font-size: 1.25rem; font-weight: 700; padding: 0 0.5rem 1.8rem; }
+.sidebar__brand { display: flex; align-items: center; gap: 0.65rem; font-family: var(--font-display); font-size: 1.25rem; font-weight: 700; padding: 0 0.5rem 1.8rem; line-height: 1.15; }
+.sidebar__tagline { display: block; font-family: var(--font); font-size: 0.74rem; font-weight: 500; color: #9fb2c4; letter-spacing: 0.02em; }
+.sidebar__icon { width: 18px; height: 18px; flex: none; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; opacity: 0.85; }
+.sidebar__label { flex: 1; }
+.sidebar__count { font-size: 0.72rem; font-weight: 700; background: var(--beacon); color: var(--ink); border-radius: 999px; padding: 0.05rem 0.45rem; font-variant-numeric: tabular-nums; }
+.sidebar__sensors { margin-top: 1.6rem; padding: 0.9rem 0.75rem; border-radius: var(--radius-sm); background: rgba(255, 255, 255, 0.05); display: grid; gap: 0.35rem; font-size: 0.8rem; color: #c9d6e2; }
+.sidebar__sensors p { display: flex; align-items: center; gap: 0.5rem; }
+.dot { width: 9px; height: 9px; border-radius: 50%; display: inline-block; flex: none; }
+.dot--suricata { background: #3cc2c0; }
+.dot--snort { background: #f0679b; }
 .sidebar__nav { display: grid; gap: 0.25rem; }
 .sidebar__link {
-  display: flex; justify-content: space-between; align-items: center; gap: 0.5rem;
+  display: flex; align-items: center; gap: 0.65rem;
   color: #c9d6e2; text-decoration: none; padding: 0.6rem 0.75rem; border-radius: var(--radius-sm); font-weight: 500;
   border-left: 3px solid transparent;
 }
@@ -27,7 +36,7 @@
 }
 .topbar__channel { font-size: 0.86rem; color: var(--warn); }
 .topbar__channel--secure { color: var(--ok); }
-.content { padding: 2rem; max-width: 1180px; width: 100%; }
+.content { padding: 2rem; max-width: 1320px; width: 100%; }
 
 /* Contador de sesión */
 .session-timer { display: flex; align-items: center; gap: 0.6rem; font-size: 0.88rem; color: var(--muted); }
@@ -43,6 +52,7 @@
   .sidebar__brand { padding: 0; }
   .sidebar__nav { display: flex; flex-wrap: wrap; flex: 1; }
   .sidebar__user { margin: 0; border: 0; padding: 0; width: 100%; }
+  .sidebar__sensors { display: none; }
   .content { padding: 1.25rem 1rem; }
   .topbar { padding: 0.6rem 1rem; justify-content: space-between; }
 }

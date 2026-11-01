@@ -1,0 +1,25 @@
+# Fragmentos a editar en /etc/suricata/suricata.yaml (ec2-frontend). Respalda antes:
+#   sudo cp /etc/suricata/suricata.yaml /etc/suricata/suricata.yaml.bak
+# Valida después:  sudo suricata -T -c /etc/suricata/suricata.yaml -v
+
+vars:
+  address-groups:
+    HOME_NET: "[10.0.0.0/17]"      # VPC del frontend: lo que este sensor protege
+    EXTERNAL_NET: "!$HOME_NET"     # todo lo demás (internet, Kali y también el backend)
+
+af-packet:
+  - interface: ens5                # confírmala con: ip -br address (t3 = ens5)
+    cluster-id: 99
+    cluster-type: cluster_flow
+    defrag: yes
+
+default-rule-path: /var/lib/suricata/rules
+
+rule-files:
+  - suricata.rules                 # reglas de la comunidad (sudo suricata-update)
+  - atalaya-obj1-icmp.rules
+  - atalaya-obj2-wireshark.rules
+  - atalaya-obj3-nmap.rules
+  - atalaya-extra-sqlmap.rules
+
+# eve-log ya viene activado con los tipos alert y http; el agente lee /var/log/suricata/eve.json

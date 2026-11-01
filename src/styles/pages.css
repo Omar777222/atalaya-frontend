@@ -37,6 +37,12 @@
   animation: light 0.35s ease forwards; animation-delay: calc(0.3s + var(--i) * 0.42s);
 }
 @keyframes light { to { background: var(--beacon); border-color: var(--beacon); box-shadow: 0 0 0 5px rgba(227, 163, 60, 0.18); } }
+.trace__step--suricata .trace__node { animation-name: light-suricata; }
+.trace__step--snort .trace__node { animation-name: light-snort; }
+@keyframes light-suricata { to { background: #3cc2c0; border-color: #3cc2c0; box-shadow: 0 0 0 6px rgba(60, 194, 192, 0.22); } }
+@keyframes light-snort { to { background: #f0679b; border-color: #f0679b; box-shadow: 0 0 0 6px rgba(240, 103, 155, 0.22); } }
+.trace__step--suricata .trace__name { color: #8ee3e1; }
+.trace__step--snort .trace__name { color: #f7a6c4; }
 .trace__name { font-weight: 600; }
 .trace__detail { color: #a9bccd; font-size: 0.9rem; }
 
@@ -45,33 +51,7 @@
   .login__form { margin: 0; }
 }
 
-/* ---------- Resumen ---------- */
-.dashboard { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.25rem; }
-.dashboard__checks { grid-column: span 3; border-top: 3px solid var(--beacon); }
-.dashboard__layers { grid-column: span 3; }
-
-.checks { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem 1.5rem; }
-.check { display: grid; grid-template-columns: 22px 1fr; gap: 0.7rem; }
-.check__icon { width: 22px; height: 22px; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
-.check__icon--ok circle { fill: var(--ok-soft); stroke: var(--ok); }
-.check__icon--ok path { stroke: var(--ok); }
-.check__icon--off circle { fill: var(--warn-soft); stroke: var(--warn); }
-.check__icon--off path { stroke: var(--warn); }
-.check__name { font-weight: 600; color: var(--ink); }
-.check__detail { font-size: 0.88rem; color: var(--muted); }
-
-.activity { display: grid; gap: 0.6rem; margin: 0; }
-.activity__row { display: grid; grid-template-columns: 9.5rem 1fr; align-items: center; gap: 0.75rem; font-size: 0.9rem; }
-.activity__row dt { color: var(--muted); }
-.activity__row dd { margin: 0; display: grid; grid-template-columns: 1fr 2rem; align-items: center; gap: 0.6rem; }
-.activity__bar { height: 8px; background: #edf1f4; border-radius: 999px; overflow: hidden; }
-.activity__bar span { display: block; height: 100%; border-radius: 999px; min-width: 2px; }
-.activity__bar--ok span { background: var(--ok); }
-.activity__bar--warn span { background: var(--beacon); }
-.activity__bar--danger span { background: var(--danger); }
-.activity__bar--neutral span { background: #9aa8b5; }
-.activity__count { font-weight: 700; color: var(--ink); text-align: right; font-variant-numeric: tabular-nums; }
-
+/* ---------- Datos en lista (tarjetas) ---------- */
 .facts { display: grid; gap: 0; margin: 0; }
 .facts div { display: flex; justify-content: space-between; gap: 1rem; padding: 0.5rem 0; border-bottom: 1px solid #edf1f4; font-size: 0.92rem; }
 .facts div:last-child { border-bottom: 0; }
@@ -85,24 +65,12 @@
 .layers__item span { color: var(--muted); }
 
 @media (max-width: 1000px) {
-  .dashboard { grid-template-columns: 1fr 1fr; }
-  .dashboard__checks, .dashboard__layers { grid-column: span 2; }
-  .checks { grid-template-columns: 1fr 1fr; }
   .layers { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 @media (max-width: 640px) {
-  .dashboard { grid-template-columns: 1fr; }
-  .dashboard__checks, .dashboard__layers { grid-column: auto; }
-  .checks, .layers { grid-template-columns: 1fr; }
+  .layers { grid-template-columns: 1fr; }
   .page-header { flex-direction: column; align-items: flex-start; }
 }
-
-/* ---------- Inventario ---------- */
-.search { display: flex; gap: 0.6rem; }
-.search__input { flex: 1; }
-.search__suggestions { display: flex; flex-wrap: wrap; align-items: center; gap: 0.45rem; margin-top: 0.8rem; font-size: 0.88rem; color: var(--muted); }
-.search__hint { font-size: 0.85rem; color: var(--muted); margin: 0.8rem 0 1.2rem; max-width: 80ch; }
-.results-count { font-weight: 600; color: var(--ink); margin-bottom: 0.4rem; }
 
 /* ---------- Auditoría ---------- */
 .filters { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.1rem; }

@@ -19,6 +19,14 @@
   --info: #2c5d8a;
   --info-soft: #e5eef7;
 
+  /* Un color por sensor: se usa igual en insignias, tarjetas, gráficas y avisos */
+  --suricata: #0e7c7b;
+  --suricata-soft: #ddf1f0;
+  --suricata-strong: #0a5c5b;
+  --snort: #b4235a;
+  --snort-soft: #fae6ee;
+  --snort-strong: #861a43;
+
   --font: "Segoe UI Variable Text", "Segoe UI", system-ui, -apple-system, Roboto, "Helvetica Neue", Arial, sans-serif;
   --font-display: "Segoe UI Variable Display", "Segoe UI", system-ui, -apple-system, Roboto, Arial, sans-serif;
   --font-mono: "Cascadia Mono", Consolas, "SF Mono", Menlo, monospace;

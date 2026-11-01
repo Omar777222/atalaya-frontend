@@ -1,0 +1,20 @@
+# Atalaya · Reglas de Suricata (NIDS en ec2-frontend) · atalaya-extra-sqlmap.rules
+# Copiar a /var/lib/suricata/rules/ y agregar en rule-files de suricata.yaml · SID 1100001 a 1100299
+# Generado con npm run rules:export: edita atalaya-backend/src/domain/catalog/detectionCatalog.js
+
+# ===== Ampliación · sqlmap y fuerza bruta =====
+# Tráfico: sqlmap por HTTP directo al frontend con el User-Agent por defecto.
+# Por qué: Firma de la herramienta en el encabezado User-Agent.
+alert http any any -> $HOME_NET any (msg:"ATALAYA SURICATA sqlmap User-Agent"; flow:to_server,established; http.user_agent; content:"sqlmap"; nocase; classtype:web-application-attack; sid:1100201; rev:1;)
+
+# Tráfico: Pruebas UNION de sqlmap en el parámetro de la URL.
+# Por qué: http.uri está normalizado (decodifica %20, +), así que detecta el patrón aunque venga codificado.
+alert http any any -> $HOME_NET any (msg:"ATALAYA SURICATA SQLi UNION SELECT en URI"; flow:to_server,established; http.uri; content:"union"; nocase; content:"select"; nocase; distance:0; classtype:web-application-attack; sid:1100202; rev:1;)
+
+# Tráfico: Pruebas booleanas de sqlmap: una comilla seguida de OR o AND en el parámetro.
+# Por qué: La expresión regular reconoce la estructura de una inyección booleana sin importar la herramienta.
+alert http any any -> $HOME_NET any (msg:"ATALAYA SURICATA SQLi comilla + OR/AND"; flow:to_server,established; http.uri; pcre:"/(\x27|%27)(\s|\+|%20)*(or|and)(\s|\+|%20)/i"; classtype:web-application-attack; sid:1100203; rev:1;)
+
+# Tráfico: Pruebas time-based de sqlmap (SLEEP(5)) en la URL.
+# Por qué: Es contenido del ataque: sigue disparando con --random-agent.
+alert http any any -> $HOME_NET any (msg:"ATALAYA SURICATA SQLi basada en tiempo (SLEEP)"; flow:to_server,established; http.uri; content:"sleep"; nocase; classtype:web-application-attack; sid:1100204; rev:1;)

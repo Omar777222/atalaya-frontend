@@ -13,7 +13,7 @@ export const REQUEST_PATH = [
   { name: 'AWS WAF y balanceador ALB', detail: 'Filtran SQLi, XSS y exceso de peticiones; terminan TLS' },
   { name: 'Suricata · NIDS', detail: 'Vigila la red de ec2-frontend (10.0.0.0/17)', sensor: 'suricata' },
   { name: 'Nginx, UFW y Fail2Ban', detail: 'Sirve el sitio y reenvía /api por el peering' },
-  { name: 'Snort · HIDS', detail: 'Vigila la interfaz de ec2-backend (10.0.128.0/17)', sensor: 'snort' },
+  { name: 'Snort · HIDS', detail: 'Vigila la interfaz de ec2-backend (subred 10.0.128.0/24)', sensor: 'snort' },
   { name: 'API con JWT y alertas a Telegram', detail: 'Cada alerta llega al panel y al grupo del equipo' },
 ];
 

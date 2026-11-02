@@ -17,9 +17,8 @@ default-rule-path: /var/lib/suricata/rules
 
 rule-files:
   - suricata.rules                 # reglas de la comunidad (sudo suricata-update)
-  - atalaya-obj1-icmp.rules
-  - atalaya-obj2-wireshark.rules
-  - atalaya-obj3-nmap.rules
-  - atalaya-extra-sqlmap.rules
+  - sensor1-nmap.rules             # Sensor 1: Nmap y barrido ICMP (SID 1000001-1000099)
+  - sensor2-wireshark.rules        # Sensor 2: tráfico en claro que captura Wireshark (1000100-1000199)
+  - sensor3-sqlmap.rules           # Sensor 3: inyección SQL con SQLMap (1000200-1000299)
 
 # eve-log ya viene activado con los tipos alert y http; el agente lee /var/log/suricata/eve.json

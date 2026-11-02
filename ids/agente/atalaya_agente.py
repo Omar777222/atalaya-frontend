@@ -33,8 +33,8 @@ KEY = ENV.get("ATALAYA_INGEST_KEY", "")
 EVE = ENV.get("SURICATA_EVE", "/var/log/suricata/eve.json")
 TOKEN = ENV.get("TELEGRAM_BOT_TOKEN", "")
 CHAT_ID = ENV.get("TELEGRAM_CHAT_ID", "")
-SID_MIN = int(ENV.get("SURICATA_SID_MIN", "1100000"))  # solo nuestras reglas locales
-SID_MAX = int(ENV.get("SURICATA_SID_MAX", "1199999"))
+SID_MIN = int(ENV.get("SURICATA_SID_MIN", "1000000"))  # solo nuestras reglas locales (sensores 1, 2 y 3)
+SID_MAX = int(ENV.get("SURICATA_SID_MAX", "1000299"))
 COOLDOWN = int(ENV.get("TELEGRAM_COOLDOWN_SECONDS", "20"))  # agrupa alertas iguales
 POLL = float(ENV.get("POLL_SECONDS", "2"))
 # Eventos de auditoría que se publican (TOKEN_REJECTED se omite: aparece cada vez que expira una sesión)

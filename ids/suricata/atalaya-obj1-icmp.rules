@@ -1,8 +1,0 @@
-# Atalaya · Reglas de Suricata (NIDS en ec2-frontend) · atalaya-obj1-icmp.rules
-# Copiar a /var/lib/suricata/rules/ y agregar en rule-files de suricata.yaml · SID 1100001 a 1100299
-# Generado con npm run rules:export: edita atalaya-backend/src/domain/catalog/detectionCatalog.js
-
-# ===== Objetivo 1 · ICMP (ping) =====
-# Tráfico: ping desde Kali a la IP pública del frontend (AWS la traduce a la privada 10.0.0.10).
-# Por qué: Suricata ve el paquete con destino 10.0.0.10, que pertenece a HOME_NET (10.0.0.0/17).
-alert icmp any any -> $HOME_NET any (msg:"ATALAYA SURICATA ICMP echo request (ping)"; itype:8; classtype:misc-activity; sid:1100001; rev:1;)

@@ -48,7 +48,7 @@ export default function SensorsPage() {
   const { token } = useAuth();
   const { alerts } = useIdsLive();
   const { data, error, loading } = useApiResource(() => idsService.setup(token), [token]);
-  const [selectedKey, setSelectedKey] = useState('snort:1000001');
+  const [selectedKey, setSelectedKey] = useState('snort:1000002');
 
   const counts = useMemo(() => {
     const m = new Map();

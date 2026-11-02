@@ -1,0 +1,17 @@
+# Atalaya · Reglas de Suricata (NIDS en ec2-frontend) · sensor1-nmap.rules
+# Copiar a /var/lib/suricata/rules/ y agregar en rule-files de suricata.yaml · Sensor 1: 1000001-099 · Sensor 2: 1000100-199 · Sensor 3: 1000200-299 (guía 2.6)
+# Generado con npm run rules:export: edita atalaya-backend/src/domain/catalog/detectionCatalog.js
+
+# ===== Objetivo 1 · ICMP (ping) =====
+# Tráfico: ping -c 10 desde Kali a la IP pública del frontend (AWS la traduce a la privada 10.0.0.10).
+# Por qué: 5 echo request (tipo 8) en 5 s desde el mismo origen hacia HOME_NET (10.0.0.0/17).
+alert icmp any any -> $HOME_NET any (msg:"ATALAYA S1 Barrido ICMP (ping / Nmap -sn)"; itype:8; threshold:type both, track by_src, count 5, seconds 5; classtype:attempted-recon; sid:1000002; rev:1;)
+
+# ===== Objetivo 3 · Escaneo con Nmap =====
+# Tráfico: nmap -sS -p 1-1000 desde Kali contra la IP pública del frontend.
+# Por qué: Muchos SYN desde una sola IP en 5 s. flags:S,12 ignora los bits ECN; threshold "both" emite una alerta por ventana.
+alert tcp any any -> $HOME_NET any (msg:"ATALAYA S1 Escaneo SYN (Nmap)"; flags:S,12; threshold:type both, track by_src, count 20, seconds 5; classtype:attempted-recon; sid:1000001; rev:1;)
+
+# Tráfico: nmap -sV -sC -p 80: los scripts NSE hacen peticiones HTTP con su propio User-Agent.
+# Por qué: NSE se anuncia como "Mozilla/5.0 (compatible; Nmap Scripting Engine)" en http.user_agent.
+alert http any any -> $HOME_NET any (msg:"ATALAYA S1 Nmap Scripting Engine"; flow:to_server,established; http.user_agent; content:"Nmap Scripting Engine"; nocase; classtype:web-application-attack; sid:1000003; rev:1;)
